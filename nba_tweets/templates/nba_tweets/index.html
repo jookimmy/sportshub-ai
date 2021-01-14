@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block javascript %}
+<script>
+    $.ajax({
+        type: 'GET',
+        url: "get/tweets",
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    })
+</script>
+{% endblock javascript %}
