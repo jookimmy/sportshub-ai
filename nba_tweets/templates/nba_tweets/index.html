@@ -1,5 +1,18 @@
-{% extends "base.html" %}
+{% extends "templates/nba_tweets/base.html" %}
 
+
+<!--this is to actually display the data -->
+{% block content %}
+    {{content}}
+
+
+
+
+
+{% endblock content %}
+
+
+<!-- this is for the javascript part dealing with ajax -->
 {% block javascript %}
 <script>
     $.ajax({
