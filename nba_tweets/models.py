@@ -1,10 +1,11 @@
 from django.db import models
 
-class Tweet(models.Model):
+class Tweets(models.Model):
     tweet_id = models.IntegerField()
     screen_name = models.CharField(max_length=100)
     text = models.CharField(max_length=280)
     quote_tweet = models.IntegerField(null=True)
+    reply_tweet = models.IntegerField(null=True)
     url = models.CharField(max_length=100)
 
 
