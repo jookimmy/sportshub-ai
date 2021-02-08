@@ -49,7 +49,7 @@ class StreamListener(tw.StreamListener):
             
 
             if Tweets.objects.count()>10:
-                Tweet.objects.filter(id__in=list(Tweet.objects.values_list('pk', flat=True)[0])).delete()
+                Tweets.objects.filter(id__in=list(Tweets.objects.values_list('pk', flat=True)[0])).delete()
             
             tweet=Tweets(tweet_id = status.id, 
                         screen_name = status.user.screen_name, 
