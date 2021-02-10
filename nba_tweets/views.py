@@ -25,5 +25,5 @@ def get_tweets(request):
         x = dictfetchall(cursor)
 
     if request.is_ajax:
-        tweets = serializers.serialize('json', [Tweets.objects.all(), ]) 
+        tweets = serializers.serialize('json', [x, ]) 
         return JsonResponse({"tweets": tweets}, status = 200)
