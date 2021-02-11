@@ -1,13 +1,15 @@
-{% extends "templates/nba_tweets/base.html" %}
+{% extends "nba_tweets/base.html" %}
 
 
 <!--this is to actually display the data -->
 {% block content %}
-    {{content}}
-
-
-
-
+    {% csrf_token %}
+    {% for tweet in tweets %}
+        <blockquote class="twitter-tweet" tw-align-center data-lang="en">
+            <a href={{tweet.URL}}></a>
+        </blockquote>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    {% endfor %}
 
 {% endblock content %}
 
@@ -15,14 +17,17 @@
 <!-- this is for the javascript part dealing with ajax -->
 {% block javascript %}
 <script>
+    var formData = new FormData();
+    formData.append("csrfmiddlewaretoken", $('input[name=csrfmiddlewaretoken]').val());
+
     $.ajax({
-        type: 'GET',
+        $.ajax({
         url: "get/tweets",
-        success: function (response) {
-            console.log(response);
+        type: 'POST',
+        data: {
+             csrfmiddlewaretoken: '{{ csrf_token }}' // just the token value
         },
-        error: function (response) {
-            console.log(response)
+        success: function(response) {
         }
     })
 </script>

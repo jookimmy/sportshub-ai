@@ -55,12 +55,12 @@ class StreamListener(tw.StreamListener):
             # need to add reply status and its ID
             cursor.execute("SELECT count(*) from tweets;")
             r = cursor.fetchone()
-            if r[0] == 10:
+            if r[0] == 3:
                 cursor.execute("DELETE FROM tweets LIMIT 1;")
 
             cursor.execute("INSERT INTO tweets (TweetID,Text,URL,QuoteID,ReplyID) VALUES (%s,%s,%s,%s,%s);",[status.id_str,text,url,quote_tweet,reply_tweet])
 
-            print(quote_tweet,reply_tweet)
+            print(status.id_str)
 
 
 
@@ -75,4 +75,5 @@ if __name__ == "__main__":
     # initialize stream
     streamListener = StreamListener()
     stream = tw.Stream(auth=api.auth, listener=streamListener, tweet_mode="extended")
-    stream.filter(follow=["1256988493491863560"])
+    stream.filter(track=["python"])
+    #follow=["1256988493491863560"]
