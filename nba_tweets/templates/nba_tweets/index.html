@@ -13,22 +13,3 @@
 
 {% endblock content %}
 
-
-<!-- this is for the javascript part dealing with ajax -->
-{% block javascript %}
-<script>
-    var formData = new FormData();
-    formData.append("csrfmiddlewaretoken", $('input[name=csrfmiddlewaretoken]').val());
-
-    $.ajax({
-        $.ajax({
-        url: "get/tweets",
-        type: 'POST',
-        data: {
-             csrfmiddlewaretoken: '{{ csrf_token }}' // just the token value
-        },
-        success: function(response) {
-        }
-    })
-</script>
-{% endblock javascript %}
