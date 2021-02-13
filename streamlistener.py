@@ -26,7 +26,7 @@ cursor = connection.cursor()
 
 class StreamListener(tw.StreamListener):
     def on_status(self, status):
-        url = f"https://twitter.com/{status.user.screen_name}/status/{status.id_str}"
+        url = f"https://twitter.com/{status.user.screen_name}/status/{str(status.id_str)}"
 
         # if "retweeted_status" attribute exists, flag this tweet as a retweet.
         is_retweet = hasattr(status, "retweeted_status")
@@ -41,15 +41,15 @@ class StreamListener(tw.StreamListener):
             # check if this is a quote tweet.
             is_quote = hasattr(status, "quoted_status")
             if is_quote:
-                quote_tweet = str(status.quoted_status.id)
+                quote_tweet = status.quoted_status.id
             else:
-                quote_tweet = "None"
+                quote_tweet = None
 
             remove_characters = [",", "\n"]
             for c in remove_characters:
                 text.replace(c, " ")
             
-            reply_tweet = str(status.in_reply_to_status_id)
+            reply_tweet = status.in_reply_to_status_id
 
             # add info into mysql database
             # need to add reply status and its ID
@@ -58,7 +58,7 @@ class StreamListener(tw.StreamListener):
             if r[0] == 3:
                 cursor.execute("DELETE FROM tweets LIMIT 1;")
 
-            cursor.execute("INSERT INTO tweets (TweetID,Text,URL,QuoteID,ReplyID) VALUES (%s,%s,%s,%s,%s);",[status.id_str,text,url,quote_tweet,reply_tweet])
+            cursor.execute("INSERT INTO tweets (TweetID,Text,URL,QuoteID,ReplyID) VALUES (%s,%s,%s,%s,%s);",[status.id,text,url,quote_tweet,reply_tweet])
 
             print(status.id_str)
 
@@ -75,5 +75,5 @@ if __name__ == "__main__":
     # initialize stream
     streamListener = StreamListener()
     stream = tw.Stream(auth=api.auth, listener=streamListener, tweet_mode="extended")
-    stream.filter(track=["python"])
+    stream.filter(follow=["1256988493491863560"])
     #follow=["1256988493491863560"]
