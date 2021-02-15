@@ -1,0 +1,15 @@
+{% extends "nba_tweets/base.html" %}
+
+
+<!--this is to actually display the data -->
+{% block content %}
+    {% csrf_token %}
+    {% for tweet in tweets %}
+        <blockquote class="twitter-tweet" tw-align-center data-lang="en">
+            <a href={{tweet.URL}}></a>
+        </blockquote>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    {% endfor %}
+
+{% endblock content %}
+
