@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'nba_tweets.apps.NbaTweetsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -68,8 +69,16 @@ TEMPLATES = [
     },
 ]
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 WSGI_APPLICATION = 'sportshubai.wsgi.application'
-
+ASGI_APPLICATIOIN = 'sportshubai.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

@@ -8,6 +8,8 @@ django.setup()
 from django.db import connection
 import tweepy as tw
 import sys
+import websockets, json
+
 
 consumer_key = "rTqL3w4m6iq9h8kFsgufdUHrY"
 consumer_secret = "Gd8eHnyYxH27hjDzhf5EDYBBxcaFKIIDlJ2na0xnn24NQygG67"
